@@ -15,11 +15,11 @@ export class UsersService {
   }
 
   findAll() {
-    return this.userModel.find().exec();
+    return this.userModel.find().populate('dependents', '_id fullName').exec();
   }
 
   findOne(id: string) {
-    return this.userModel.findById(id).exec();
+    return this.userModel.findById(id).populate('dependents', '_id fullName').exec();
   }
 
   update(id: string, updateUserDto: UpdateUserDto) {
