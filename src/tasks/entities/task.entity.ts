@@ -8,7 +8,10 @@ export class Task {
     @Prop({ required: true })
     title: string;
 
-    @Prop()
+    @Prop({ required: true })
+    type: string;
+
+    @Prop({ default: false })
     active: boolean;
 }
 
