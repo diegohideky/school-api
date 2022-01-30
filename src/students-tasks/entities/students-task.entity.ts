@@ -6,7 +6,7 @@ import { Student } from 'src/students/entities/student.entity';
 
 export type StudentsTasksDocument = StudentsTasks & Document;
 
-@Schema()
+@Schema({ collection: 'studentTasks' })
 export class StudentsTasks {
     @Prop({ required: true, type: mongoose.Schema.Types.ObjectId, ref: 'Task' })
     task: Task;
