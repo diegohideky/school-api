@@ -2,10 +2,14 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { StudentsService } from './students.service';
 import { CreateStudentDto } from './dto/create-student.dto';
 import { UpdateStudentDto } from './dto/update-student.dto';
+import { StudentsTasksService } from 'src/students-tasks/students-tasks.service';
 
 @Controller('students')
 export class StudentsController {
-  constructor(private readonly studentsService: StudentsService) { }
+  constructor(
+    private readonly studentsService: StudentsService,
+    private readonly studentsTasksService: StudentsTasksService
+  ) { }
 
   @Post()
   create(@Body() createStudentDto: CreateStudentDto) {
@@ -30,5 +34,10 @@ export class StudentsController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.studentsService.remove(id);
+  }
+
+  @Get(':id/tasks')
+  findTasks(@Param('id') id: string) {
+    return this.studentsTasksService.findStudentTasks(id);
   }
 }
