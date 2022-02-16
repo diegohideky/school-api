@@ -18,8 +18,12 @@ export class UsersService {
     return this.userModel.find().populate('dependents', '_id fullName').exec();
   }
 
-  findOne(id: string) {
+  findById(id: string) {
     return this.userModel.findById(id).populate('dependents', '_id fullName').exec();
+  }
+
+  findOne(query: any) {
+    return this.userModel.findOne(query).lean().exec();
   }
 
   update(id: string, updateUserDto: UpdateUserDto) {
