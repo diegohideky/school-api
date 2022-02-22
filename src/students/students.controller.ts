@@ -23,21 +23,25 @@ export class StudentsController {
     return this.studentsService.findAll();
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.studentsService.findOne(id);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateStudentDto: UpdateStudentDto) {
     return this.studentsService.update(id, updateStudentDto);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.studentsService.remove(id);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get(':id/tasks')
   findTasks(@Param('id') id: string) {
     return this.studentsTasksService.findStudentTasks(id);
