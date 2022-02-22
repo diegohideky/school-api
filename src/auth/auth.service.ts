@@ -26,4 +26,8 @@ export class AuthService {
       token: this.jwtService.sign(payload),
     };
   }
+
+  validatePassword(password: string, confirmPassword: string): boolean {
+    return password === confirmPassword && /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/.test(password);
+  }
 }

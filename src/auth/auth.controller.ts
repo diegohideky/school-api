@@ -1,4 +1,4 @@
-import { Controller, Request, Post, UseGuards, Body } from '@nestjs/common';
+import { Controller, Request, Post, UseGuards, Body, HttpException, HttpStatus } from '@nestjs/common';
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
 import { UsersService } from 'src/users/users.service';
 import { AuthService } from './auth.service';
@@ -19,7 +19,31 @@ export class AuthController {
   }
 
   @Post('signup')
-  create(@Body() createUserDto: CreateUserDto) {
+  async create(@Body() createUserDto: CreateUserDto) {
+    const { email, username, password, confirmPassword } = createUserDto;
+    const existingUser = await this.usersService.findOne({
+      $or: [
+        { email },
+        { username }
+      ]
+    });
+
+    if (existingUser) {
+      throw new HttpException({
+        status: HttpStatus.BAD_REQUEST,
+        error: 'User with email or username already exists.',
+      }, HttpStatus.BAD_REQUEST);
+    }
+
+    const hasValidPassword = this.authService.validatePassword(password, confirmPassword);
+
+    if (!hasValidPassword) {
+      throw new HttpException({
+        status: HttpStatus.BAD_REQUEST,
+        error: 'Password is not equal or do not follow pattern.',
+      }, HttpStatus.BAD_REQUEST);
+    }
+
     const user = { ...createUserDto, password: hashSync(createUserDto.password, 10) };
     return this.usersService.create(user);
   }
