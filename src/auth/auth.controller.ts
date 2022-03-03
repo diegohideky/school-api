@@ -4,6 +4,7 @@ import { UsersService } from 'src/users/users.service';
 import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './guards/local-auth.guard';
 import { hashSync } from 'bcrypt';
+import configuration from 'src/config/configuration';
 
 @Controller('auth')
 export class AuthController {
@@ -44,7 +45,7 @@ export class AuthController {
       }, HttpStatus.BAD_REQUEST);
     }
 
-    const user = { ...createUserDto, password: hashSync(createUserDto.password, 10) };
+    const user = { ...createUserDto, password: hashSync(createUserDto.password, configuration().password.salt) };
     return this.usersService.create(user);
   }
 }
