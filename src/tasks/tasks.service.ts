@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
@@ -7,7 +8,7 @@ import { Task, TaskDocument } from './entities/task.entity';
 
 @Injectable()
 export class TasksService {
-  constructor(@InjectModel(Task.name) private taskModel: Model<TaskDocument>) { }
+  constructor(@InjectModel(Task.name) private taskModel: Model<TaskDocument>) {}
 
   create(createTaskDto: CreateTaskDto) {
     const createdCat = new this.taskModel(createTaskDto);
@@ -23,18 +24,24 @@ export class TasksService {
   }
 
   update(id: string, updateTaskDto: UpdateTaskDto) {
-    return this.taskModel.findByIdAndUpdate({
-      _id: id
-    }, {
-      $set: updateTaskDto
-    }, {
-      new: true
-    });
+    return this.taskModel.findByIdAndUpdate(
+      {
+        _id: id,
+      },
+      {
+        $set: updateTaskDto,
+      },
+      {
+        new: true,
+      },
+    );
   }
 
   remove(id: string) {
-    return this.taskModel.deleteOne({
-      _id: id,
-    }).exec();
+    return this.taskModel
+      .deleteOne({
+        _id: id,
+      })
+      .exec();
   }
 }
