@@ -9,10 +9,10 @@ export class Task {
   @Prop({ required: true })
   title: string;
 
-  @Prop()
+  @Prop({ default: false })
   active: boolean;
 
-  @Prop()
+  @Prop({ required: true })
   type: "YES_NO" | "STAR" | "UP_TO_TEN" | "LIKE_DESLIKE";
 }
 
