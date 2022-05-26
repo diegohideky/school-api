@@ -1,25 +1,27 @@
 /* eslint-disable prettier/prettier */
+import * as mongoose from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
+import { User } from 'src/users/entities/user.entity';
 
 export type StudentDocument = Student & Document;
 
 @Schema()
 export class Student {
-  @Prop()
+  @Prop({ required: true })
   fullName: string;
 
-  @Prop()
+  @Prop({ required: true })
   gender: "Male" | "Female";
 
-  @Prop()
+  @Prop({ required: true })
   birthDate: Date;
 
-  @Prop()
+  @Prop({ default: false })
   active: boolean;
 
-  @Prop()
-  responsabiles: string; //trocar para UserId[]
+  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }] })
+  responsabiles: User[]; 
 }
 
 export const StudentSchema = SchemaFactory.createForClass(Student);
