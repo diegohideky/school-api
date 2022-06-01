@@ -21,7 +21,7 @@ export class Student {
   active: boolean;
 
   @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }] })
-  responsabiles: User[]; 
+  responsibles: User[]; 
 }
 
 export const StudentSchema = SchemaFactory.createForClass(Student);
