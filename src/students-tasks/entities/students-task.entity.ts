@@ -10,10 +10,13 @@ export type StudentTaskDocument = StudentTask & Document;
 @Schema({ collection: 'studentTasks' })
 export class StudentTask {
   @Prop({ required: true, type: mongoose.Schema.Types.ObjectId, ref: 'Task' })
-  taskId: Task;
+  task: Task;
 
   @Prop({ required: true, type: mongoose.Schema.Types.ObjectId, ref: 'Student' })
-  dateTime: Student;
+  student: Student;
+
+  @Prop({ required: true })
+  dateTime: Date;
 
   @Prop({ required: true })
   score: number;

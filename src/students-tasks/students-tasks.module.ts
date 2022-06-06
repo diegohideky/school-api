@@ -6,12 +6,9 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { StudentTask, StudentTaskSchema } from './entities/students-task.entity';
 
 @Module({
-  imports: [
-    MongooseModule.forFeature([
-      { name: StudentTask.name, schema: StudentTaskSchema },
-    ]),
-  ],
+  imports: [MongooseModule.forFeature([{ name: StudentTask.name, schema: StudentTaskSchema }])],
   controllers: [StudentsTasksController],
   providers: [StudentsTasksService],
+  exports: [StudentsTasksService]
 })
 export class StudentsTasksModule {}

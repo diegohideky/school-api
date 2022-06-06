@@ -8,6 +8,7 @@ import { Task, TaskDocument } from './entities/task.entity';
 
 @Injectable()
 export class TasksService {
+  length: number;
   constructor(@InjectModel(Task.name) private taskModel: Model<TaskDocument>) { }
 
   create(createTaskDto: CreateTaskDto) {

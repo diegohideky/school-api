@@ -16,11 +16,15 @@ export class StudentsService {
   }
 
   findAll() {
-    return this.studentModel.find().exec();
+    return this.studentModel.find()
+    .populate('responsibles', '_id userName')
+    .exec();
   }
 
   findOne(id: string) {
-    return this.studentModel.findById(id).exec();
+    return this.studentModel.findById(id)
+    .populate('responsibles', '_id userName')
+    .exec();
   }
 
   update(id: string, updateStudentDto: UpdateStudentDto) {
