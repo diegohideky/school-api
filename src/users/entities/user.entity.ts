@@ -9,25 +9,25 @@ export type UserDocument = User & Document;
 @Schema()
 export class User {
   @Prop({ required: true })
-  email: string; //email válido
+  email: string;
 
   @Prop({ required: true })
-  username: string; // unico;
+  userName: string;
 
   @Prop({ required: true })
-  password: string; //1 letra maiscula, 1 letra minuscula, 1 numero, 1 caractere especial, 8 caracteres minimo
+  password: string;
 
   @Prop({ required: true, default: 'USER' })
-  role: 'ADMIN' | 'USER';
+  role: string;
 
   @Prop({ required: true })
-  birthDate: Date; //maior que 18 anos
+  birthDate: Date;
 
   @Prop({ default: false })
-  active: boolean; //default é false
+  active: boolean;
 
   @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Student' }] })
-  dependents: Student[] //validar se student existe antes de adicionar
+  dependents: Student[];
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

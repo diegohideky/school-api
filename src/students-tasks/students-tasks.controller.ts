@@ -1,8 +1,7 @@
 /* eslint-disable prettier/prettier */
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete } from '@nestjs/common';
 import { StudentsTasksService } from './students-tasks.service';
 import { CreateStudentsTaskDto } from './dto/create-students-task.dto';
-import { UpdateStudentsTaskDto } from './dto/update-students-task.dto';
 
 @Controller('students-tasks')
 export class StudentsTasksController {
@@ -21,11 +20,6 @@ export class StudentsTasksController {
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.studentsTasksService.findOne(id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateStudentsTaskDto: UpdateStudentsTaskDto) {
-    return this.studentsTasksService.update(id, updateStudentsTaskDto);
   }
 
   @Delete(':id')
