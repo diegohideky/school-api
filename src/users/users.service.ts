@@ -26,6 +26,10 @@ export class UsersService {
     .exec();
   }
 
+  findOne(query){
+    return this.userModel.findOne(query).lean().exec();
+  }
+
   update(id: string, updateUserDto: UpdateUserDto) {
     return this.userModel.findByIdAndUpdate(
       {
