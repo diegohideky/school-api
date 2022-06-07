@@ -1,9 +1,10 @@
 /* eslint-disable prettier/prettier */
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
 import { StudentsService } from './students.service';
 import { CreateStudentDto } from './dto/create-student.dto';
 import { UpdateStudentDto } from './dto/update-student.dto';
 import { StudentsTasksService } from 'src/students-tasks/students-tasks.service';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth-guards';
 
 
 @Controller('students')
@@ -19,6 +20,7 @@ export class StudentsController {
     return this.studentsService.create(createStudentDto);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get()
   findAll() {
     return this.studentsService.findAll();
